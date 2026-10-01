@@ -1,0 +1,25 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "useDefineForClassFields": true,
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "strict": true,
+    "noUncheckedIndexedAccess": true,
+    "exactOptionalPropertyTypes": true,
+    "noEmit": true,
+    "lib": ["ES2022", "DOM", "DOM.Iterable"],
+    "types": ["vitest/globals", "@types/w3c-web-usb", "vite/client"]
+  },
+  "include": ["src", "tests", "vite.config.ts"],
+  "exclude": [
+    "api",
+    "scripts",
+    "e2e",
+    "src/ui/app.ts",
+    "src/release/legacy-signer.ts",
+    "tests/ui-app.test.ts",
+    "tests/legacy-signer.test.ts",
+    "tests/bootstrap-api.test.ts"
+  ]
+}

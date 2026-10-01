@@ -1,0 +1,63 @@
+{
+  "name": "@djonehub/windows-flasher",
+  "version": "0.1.0",
+  "description": "DJOneHub QDC507 Windows 首次刷写工具（测试版）",
+  "author": "JieDen",
+  "private": true,
+  "main": "electron/main.cjs",
+  "type": "module",
+  "engines": {
+    "node": ">=20.19.0"
+  },
+  "scripts": {
+    "dev": "vite",
+    "start": "vite --host 127.0.0.1 --port 4173 --open",
+    "build": "tsc --noEmit && vite build",
+    "electron:dev": "npm run build && electron .",
+    "dist:win": "npm run build && electron-builder --win portable --x64",
+    "bootstrap:upload": "vercel env run -- node scripts/upload-bootstrap.mjs",
+    "firmware:upload": "vercel env run -- node scripts/upload-firmware.mjs",
+    "launcher:sync": "node scripts/sync-init-launcher.mjs",
+    "test": "vitest run",
+    "test:e2e": "playwright test"
+  },
+  "dependencies": {
+    "@noble/ed25519": "3.1.0",
+    "fflate": "0.8.3"
+  },
+  "build": {
+    "appId": "com.jieden.djonehub.windows-flasher",
+    "productName": "DJOneHub Windows Flasher",
+    "asar": true,
+    "files": [
+      "dist/**/*",
+      "electron/**/*",
+      "package.json"
+    ],
+    "extraResources": [
+      {
+        "from": "resources/firmware",
+        "to": "firmware",
+        "filter": [
+          "**/*"
+        ]
+      }
+    ],
+    "win": {
+      "target": [
+        "portable"
+      ],
+      "artifactName": "DJOneHub-Windows-Flasher-${version}-beta.${ext}"
+    }
+  },
+  "devDependencies": {
+    "@playwright/test": "1.62.1",
+    "@types/node": "24.10.1",
+    "@types/w3c-web-usb": "1.0.14",
+    "electron": "^44.5.1",
+    "electron-builder": "^26.15.3",
+    "typescript": "5.9.3",
+    "vite": "7.3.6",
+    "vitest": "3.2.7"
+  }
+}

@@ -1,0 +1,24 @@
+.vercel
+node_modules/
+dist/
+test-results/
+playwright-report/
+.DS_Store
+.env*
+.worktrees/
+local-firmware/
+/release/
+resources/firmware/*.djupdate
+
+# 旧网页刷写器的维护接口与高风险入口不会进入 Windows 小白版源码。
+AUTHOR-NOTE-usb-reconnect.md
+open.command
+api/
+scripts/
+e2e/
+public/
+src/ui/app.ts
+src/release/legacy-signer.ts
+tests/ui-app.test.ts
+tests/legacy-signer.test.ts
+tests/bootstrap-api.test.ts

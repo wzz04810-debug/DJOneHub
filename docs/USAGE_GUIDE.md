@@ -68,7 +68,7 @@ scripts/build-dmg-universal.sh v1.2.10
 
 移动端通过模块的 CDC ECM 网络访问 `http://192.168.225.1:7575/`。如设备未获得 DHCP 地址，可临时设为 `192.168.225.2/24`；不要手动设置路由器或 DNS，以免覆盖 Wi-Fi 的默认互联网出口。
 
-Windows 电脑为未部署模块进行首次刷写时，请不要套用本节的移动端更新流程；参阅独立的 [Windows 电脑刷机页面](WINDOWS_WEB_FLASHER.md)。
+Windows 电脑为未部署模块进行首次刷写时，请不要套用本节的移动端更新流程。优先参阅 [Windows 刷机工具使用教程](WINDOWS_FLASHER_APP.md)；第三方 WebUSB 方案见 [Windows 电脑刷机页面](WINDOWS_WEB_FLASHER.md)。
 
 ## 5. 模块状态与更新
 
