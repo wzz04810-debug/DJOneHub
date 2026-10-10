@@ -132,6 +132,17 @@ final class AppModel: ObservableObject {
         restartPolling()
     }
 
+    /// 删除单条本机通话记录；模块仅保存待交付记录，因此不向模块发送删除请求。
+    func deleteCallHistory(_ record: CallRecord) {
+        let updatedHistory = callHistory.filter { $0.id != record.id }
+        guard historyStore.saveCallHistory(updatedHistory) else {
+            errorMessage = "无法删除本机通话记录，请稍后重试"
+            return
+        }
+        callHistory = updatedHistory
+        errorMessage = nil
+    }
+
     /// 每次从锁屏或后台回来都舍弃旧连接，避免休眠前的超时结果覆盖新状态。
     func didBecomeActive() {
         appIsActive = true

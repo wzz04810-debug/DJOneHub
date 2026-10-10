@@ -158,10 +158,7 @@ struct PhoneCard: ViewModifier {
             content
                 .padding(16)
                 .frame(maxWidth: .infinity, alignment: .leading)
-                .glassEffect(
-                    .regular,
-                    in: RoundedRectangle(cornerRadius: 18, style: .continuous)
-                )
+                
         } else {
             content
                 .padding(16)
@@ -180,7 +177,7 @@ extension View {
     @ViewBuilder
     func phoneTabBarMinimizeOnScroll() -> some View {
         if #available(iOS 26.0, *) {
-            self.tabBarMinimizeBehavior(.onScrollDown)
+            self
         } else {
             self
         }

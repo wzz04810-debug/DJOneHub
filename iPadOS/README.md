@@ -69,3 +69,8 @@ ARMv7 helper 的 ELF、动态链接器、GLIBC 版本和原厂音频符号检查
 ![咖啡豆与茶叶小程序二维码](https://raw.githubusercontent.com/wzz04810-debug/DJOneHub/main/docs/assets/coffee-tea-miniprogram-qr.jpg)
 
 本项目仅用于学习、研究与合法的非商业用途。严禁将本项目、其源码、脚本或发布附件用于任何非法、侵权、规避安全限制、未经授权访问设备或违反运营商及平台规则的行为；不当使用造成的后果由使用者自行承担。
+
+
+## Windows 构建 iPhone IPA
+
+Windows 可用于编辑源码和推送代码；iOS 编译由 GitHub Actions 的 macOS runner 使用 Xcode 完成。将 iPadOS 或工作流变更提交到 main 后，打开仓库的 Actions → Build unsigned iOS IPA，等待任务成功，再从运行详情的 Artifacts 下载 DJOneHub-iPhone-unsigned。也可以在 Actions 页面手动运行该工作流。生成的是未签名 IPA，安装前需要使用自己的证书和获授权的侧载方式签名；证书和 Provisioning Profile 不应放入仓库或工作流。

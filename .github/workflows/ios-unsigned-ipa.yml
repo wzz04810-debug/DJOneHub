@@ -1,0 +1,59 @@
+name: Build unsigned iOS IPA
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+    paths:
+      - "iPadOS/**"
+      - ".github/workflows/ios-unsigned-ipa.yml"
+  pull_request:
+    branches:
+      - main
+    paths:
+      - "iPadOS/**"
+      - ".github/workflows/ios-unsigned-ipa.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  build-unsigned-ipa:
+    runs-on: macos-15
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v4
+
+      - name: Build iPhone and iPad app
+        run: >-
+          xcodebuild
+          -project iPadOS/DJOneHub-iPad.xcodeproj
+          -scheme DJOneHub-iPad
+          -configuration Release
+          -sdk iphoneos
+          -destination 'generic/platform=iOS'
+          -derivedDataPath "$RUNNER_TEMP/DerivedData"
+          CODE_SIGNING_ALLOWED=NO
+          CODE_SIGNING_REQUIRED=NO
+          CODE_SIGN_IDENTITY=""
+          build
+
+      - name: Package unsigned IPA
+        shell: bash
+        run: |
+          set -euo pipefail
+          app_path="$RUNNER_TEMP/DerivedData/Build/Products/Release-iphoneos/DJOneHub.app"
+          test -d "$app_path"
+          package_root="$RUNNER_TEMP/ipa-root"
+          mkdir -p "$package_root/Payload"
+          cp -R "$app_path" "$package_root/Payload/DJOneHub.app"
+          ditto -c -k --sequesterRsrc --keepParent "$package_root/Payload" "$RUNNER_TEMP/DJOneHub-iPhone-unsigned.ipa"
+
+      - name: Upload unsigned IPA
+        uses: actions/upload-artifact@v4
+        with:
+          name: DJOneHub-iPhone-unsigned
+          path: ${{ runner.temp }}/DJOneHub-iPhone-unsigned.ipa
+          if-no-files-found: error
+          retention-days: 14

@@ -349,7 +349,7 @@ final class AudioSessionController: ObservableObject {
         try session.setCategory(
             .playAndRecord,
             mode: .voiceChat,
-            options: [.allowBluetoothHFP]
+            options: [.allowBluetooth]
         )
         try session.setPreferredSampleRate(48_000)
         try session.setPreferredIOBufferDuration(0.02)
